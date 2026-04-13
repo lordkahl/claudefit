@@ -1,0 +1,648 @@
+/* ============================================================
+   QUESTIONNAIRE.CSS — Screen 1: Multi-step Fitness Onboarding
+   ============================================================ */
+
+/* ============================================================
+   SCREEN LAYOUT
+   ============================================================ */
+#screen-questionnaire {
+  overflow: hidden;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.q-header {
+  position: relative;
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s5) var(--s8);
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border-0);
+  background: rgba(6, 8, 13, 0.85);
+  backdrop-filter: blur(12px);
+}
+
+/* ---- Logo ---- */
+.q-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  user-select: none;
+}
+
+.logo-mark {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  background: var(--accent);
+  color: var(--bg-0);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  border-radius: var(--r-xs);
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  color: var(--text-0);
+}
+
+/* ---- Progress Area ---- */
+.q-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+}
+
+.q-progress-track {
+  width: 180px;
+  height: 3px;
+  background: var(--bg-4);
+  border-radius: var(--r-full);
+  overflow: hidden;
+}
+
+.q-progress-bar {
+  height: 100%;
+  background: var(--accent);
+  border-radius: var(--r-full);
+  box-shadow: var(--accent-glow-sm);
+  transition: width 0.55s var(--ease-inout);
+  width: 14.28%; /* 1/7 */
+}
+
+.q-step-count {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-3);
+  letter-spacing: 0.06em;
+  min-width: 2.75rem;
+  text-align: right;
+}
+
+/* ============================================================
+   STEPS CONTAINER
+   ============================================================ */
+.q-main {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ---- Individual Step ---- */
+.q-step {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s8) var(--s8) var(--s6);
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* Default: off-screen right */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100%);
+  transition:
+    transform var(--t-step) var(--ease-inout),
+    opacity   var(--t-step) ease;
+}
+
+.q-step.active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(0);
+}
+
+.q-step.exit-left {
+  transform: translateX(-28%) scale(0.97);
+  opacity: 0;
+}
+
+/* ---- Step Content Block ---- */
+.q-content {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s5);
+}
+
+/* ---- Step Label (01, 02 …) ---- */
+.q-step-label {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.35s ease 0.08s, transform 0.35s var(--ease-out) 0.08s;
+}
+
+.q-step.active .q-step-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Question Heading ---- */
+.q-question {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text-0);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.38s ease 0.13s, transform 0.38s var(--ease-out) 0.13s;
+}
+
+.q-step.active .q-question {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Sub-text ---- */
+.q-sub {
+  font-size: 0.925rem;
+  color: var(--text-2);
+  line-height: 1.65;
+  max-width: 500px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.38s ease 0.18s, transform 0.38s var(--ease-out) 0.18s;
+}
+
+.q-step.active .q-sub {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   OPTION CARDS
+   ============================================================ */
+.q-options {
+  display: grid;
+  gap: var(--s3);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.4s ease 0.23s, transform 0.4s var(--ease-out) 0.23s;
+}
+
+.q-step.active .q-options {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.q-options--2col { grid-template-columns: 1fr 1fr; }
+.q-options--3col { grid-template-columns: repeat(3, 1fr); }
+
+@media (max-width: 580px) {
+  .q-options--2col,
+  .q-options--3col { grid-template-columns: 1fr; }
+}
+
+/* ---- Option Card ---- */
+.q-option {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s2);
+  padding: var(--s5);
+  background: var(--bg-2);
+  border: 1.5px solid var(--border-0);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  text-align: left;
+  overflow: hidden;
+  min-height: 44px;
+  transition:
+    border-color var(--t-normal) ease,
+    background    var(--t-normal) ease,
+    transform     var(--t-fast)   var(--ease-spring),
+    box-shadow    var(--t-normal) ease;
+}
+
+/* Shimmer overlay */
+.q-option::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--accent-dim) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity var(--t-normal) ease;
+}
+
+.q-option:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35), var(--accent-glow-sm);
+}
+
+.q-option:hover::before { opacity: 1; }
+
+.q-option:active {
+  transform: translateY(0) scale(0.985);
+}
+
+/* ---- Selected State ---- */
+.q-option.selected {
+  border-color: var(--accent);
+  background: var(--bg-3);
+  box-shadow: 0 0 0 1px var(--accent), var(--accent-glow);
+}
+
+.q-option.selected::before { opacity: 1; }
+
+/* Checkmark badge */
+.q-option.selected::after {
+  content: '';
+  position: absolute;
+  top: var(--s3);
+  right: var(--s3);
+  width: 18px;
+  height: 18px;
+  border-radius: var(--r-full);
+  background: var(--accent)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' viewBox='0 0 10 8' fill='none'%3E%3Cpath d='M1 4L3.5 6.5L9 1' stroke='%2306080D' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    no-repeat center;
+}
+
+/* ---- Option Icon ---- */
+.q-option-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Option Label ---- */
+.q-option-label {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-0);
+  position: relative;
+  z-index: 1;
+  transition: color var(--t-normal) ease;
+}
+
+.q-option.selected .q-option-label { color: var(--accent); }
+
+/* ---- Option Description ---- */
+.q-option-desc {
+  font-size: 0.775rem;
+  color: var(--text-2);
+  line-height: 1.45;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   DAYS PICKER — Step 4
+   ============================================================ */
+.q-days-picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s5);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.4s ease 0.23s, transform 0.4s var(--ease-out) 0.23s;
+}
+
+.q-step.active .q-days-picker {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.days-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  padding: var(--s8) var(--s6);
+  background: var(--bg-2);
+  border: 1px solid var(--border-0);
+  border-radius: var(--r-lg);
+}
+
+.days-number {
+  font-family: var(--font-display);
+  font-size: 5.5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--accent);
+  text-shadow: 0 0 50px rgba(0, 255, 135, 0.55);
+  display: block;
+  transition: transform 0.18s var(--ease-spring);
+}
+
+.days-number.bump {
+  transform: scale(1.25);
+}
+
+.days-label {
+  font-size: 0.8rem;
+  color: var(--text-2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--s2);
+}
+
+.day-btn {
+  aspect-ratio: 1;
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  background: var(--bg-2);
+  border: 1.5px solid var(--border-0);
+  border-radius: var(--r-sm);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-3);
+  cursor: pointer;
+  transition:
+    background     var(--t-fast) ease,
+    border-color   var(--t-fast) ease,
+    color          var(--t-fast) ease,
+    transform      var(--t-fast) var(--ease-spring),
+    box-shadow     var(--t-fast) ease;
+}
+
+.day-btn:hover {
+  background: var(--bg-3);
+  border-color: var(--border-accent);
+  color: var(--text-0);
+  transform: scale(1.06);
+}
+
+.day-btn.selected {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: var(--accent-glow-sm);
+}
+
+.days-hint {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   TEXT INPUT — Step 5 (Injuries)
+   ============================================================ */
+.q-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.4s ease 0.23s, transform 0.4s var(--ease-out) 0.23s;
+}
+
+.q-step.active .q-text-block {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.q-textarea {
+  width: 100%;
+  padding: var(--s4) var(--s5);
+  background: var(--bg-2);
+  border: 1.5px solid var(--border-1);
+  border-radius: var(--r-md);
+  color: var(--text-0);
+  font-size: 1rem;
+  line-height: 1.65;
+  resize: vertical;
+  min-height: 130px;
+  transition:
+    border-color var(--t-normal) ease,
+    box-shadow   var(--t-normal) ease;
+}
+
+.q-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 255, 135, 0.1);
+}
+
+.q-textarea::placeholder { color: var(--text-3); }
+
+.q-textarea-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.q-badge-optional {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-3);
+  background: var(--bg-3);
+  padding: 2px var(--s3);
+  border-radius: var(--r-full);
+  border: 1px solid var(--border-1);
+  letter-spacing: 0.06em;
+}
+
+.q-char-count {
+  font-size: 0.72rem;
+  color: var(--text-3);
+}
+
+/* ============================================================
+   NUMBER INPUT — Step 6 (Age)
+   ============================================================ */
+.q-age-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.4s ease 0.23s, transform 0.4s var(--ease-out) 0.23s;
+}
+
+.q-step.active .q-age-block {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.age-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+}
+
+.q-number-input {
+  width: 160px;
+  padding: var(--s4);
+  background: var(--bg-2);
+  border: 1.5px solid var(--border-1);
+  border-radius: var(--r-md);
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 2.75rem;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: -0.03em;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  transition:
+    border-color var(--t-normal) ease,
+    box-shadow   var(--t-normal) ease;
+}
+
+.q-number-input::-webkit-inner-spin-button,
+.q-number-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+.q-number-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 255, 135, 0.1), var(--accent-glow-sm);
+}
+
+.q-number-input::placeholder { color: var(--text-3); }
+
+.age-unit {
+  font-size: 1.05rem;
+  color: var(--text-2);
+}
+
+.age-hint {
+  font-size: 0.8rem;
+  color: var(--text-3);
+}
+
+/* ============================================================
+   FOOTER NAV
+   ============================================================ */
+.q-footer {
+  position: relative;
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s4) var(--s8);
+  border-top: 1px solid var(--border-0);
+  flex-shrink: 0;
+  background: rgba(6, 8, 13, 0.8);
+  backdrop-filter: blur(12px);
+}
+
+/* Shared button base */
+.q-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: var(--s3) var(--s6);
+  border-radius: var(--r-full);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition:
+    background    var(--t-normal) ease,
+    color         var(--t-normal) ease,
+    border-color  var(--t-normal) ease,
+    opacity       var(--t-normal) ease,
+    transform     var(--t-fast)   var(--ease-spring),
+    box-shadow    var(--t-normal) ease;
+  min-height: 44px;
+  user-select: none;
+}
+
+/* Back */
+.q-btn--back {
+  background: transparent;
+  color: var(--text-2);
+  border: 1.5px solid var(--border-1);
+}
+
+.q-btn--back:hover {
+  color: var(--text-0);
+  border-color: var(--border-accent);
+  background: var(--bg-2);
+}
+
+/* Next / Finish */
+.q-btn--next {
+  background: var(--accent);
+  color: var(--bg-0);
+  font-weight: 700;
+  padding: var(--s3) var(--s8);
+}
+
+.q-btn--next:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--accent-glow);
+}
+
+.q-btn--next:active:not(:disabled) {
+  transform: translateY(0) scale(0.975);
+}
+
+.q-btn--next:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   MOBILE — ≤ 480px
+   ============================================================ */
+@media (max-width: 480px) {
+  .q-header { padding: var(--s4) var(--s4); }
+
+  .q-progress-track { width: 110px; }
+
+  .q-step {
+    padding: var(--s6) var(--s4) var(--s4);
+    align-items: flex-start;
+  }
+
+  .q-footer { padding: var(--s3) var(--s4); }
+
+  .days-grid { gap: var(--s1); }
+
+  .days-number { font-size: 4rem; }
+}
+
+/* ============================================================
+   COMPLETION FLASH
+   ============================================================ */
+@keyframes flashAccent {
+  0%   { box-shadow: 0 0 0 0 rgba(0, 255, 135, 0.7); }
+  70%  { box-shadow: 0 0 0 18px rgba(0, 255, 135, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 255, 135, 0); }
+}
+
+.q-btn--next.completing {
+  animation: flashAccent 0.55s ease forwards;
+}

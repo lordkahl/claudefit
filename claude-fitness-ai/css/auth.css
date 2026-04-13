@@ -1,0 +1,545 @@
+/* ============================================================
+   AUTH.CSS — Screen 3: Sign Up
+   ============================================================ */
+
+/* ============================================================
+   SCREEN
+   ============================================================ */
+#screen-auth {
+  overflow: hidden;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.auth-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s5) var(--s8);
+  border-bottom: 1px solid var(--border-0);
+  background: rgba(6, 8, 13, 0.88);
+  backdrop-filter: blur(12px);
+  flex-shrink: 0;
+  z-index: var(--z-sticky);
+}
+
+.auth-header-sub {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+/* ============================================================
+   MAIN SCROLL AREA
+   ============================================================ */
+.auth-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--s8) var(--s8) var(--s6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s6);
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  /* full width on the screen itself */
+  align-self: stretch;
+}
+
+/* ============================================================
+   COACH CONFIRMATION PILL
+   ============================================================ */
+.auth-coach-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s2) var(--s4) var(--s2) var(--s3);
+  background: var(--bg-2);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-full);
+  width: fit-content;
+  user-select: none;
+}
+
+.auth-coach-pill-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+}
+
+.auth-coach-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--r-full);
+  background: var(--accent);
+  box-shadow: var(--accent-glow-sm);
+  flex-shrink: 0;
+}
+
+.auth-coach-pill-name {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-0);
+}
+
+/* ============================================================
+   INTRO
+   ============================================================ */
+.auth-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--s2);
+}
+
+.auth-desc {
+  font-size: 0.925rem;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   TWO-PANEL LAYOUT
+   ============================================================ */
+.auth-panels {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  align-items: start;
+}
+
+/* ---- Shared panel card ---- */
+.auth-panel {
+  padding: var(--s6);
+  background: var(--bg-2);
+  border: 1.5px solid var(--border-0);
+  border-radius: var(--r-lg);
+}
+
+.auth-panel-header {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  margin-bottom: var(--s5);
+  padding-bottom: var(--s4);
+  border-bottom: 1px solid var(--border-0);
+}
+
+.auth-panel-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-sm);
+  background: var(--bg-3);
+  border: 1px solid var(--border-1);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: var(--text-1);
+}
+
+.auth-panel-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-0);
+}
+
+/* ============================================================
+   DIVIDER  (vertical on desktop, horizontal on mobile)
+   ============================================================ */
+.auth-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s3);
+  padding: 0 var(--s6);
+  /* rough vertical centering relative to form height */
+  padding-top: 140px;
+}
+
+.auth-divider-line {
+  flex: 1;
+  width: 1px;
+  min-height: 32px;
+  background: var(--border-1);
+}
+
+.auth-divider-or {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   EMAIL FORM
+   ============================================================ */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+}
+
+/* ---- Form group ---- */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.form-label {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-1);
+  letter-spacing: 0.02em;
+}
+
+/* ---- Input ---- */
+.form-input {
+  width: 100%;
+  min-height: 46px;
+  padding: var(--s3) var(--s4);
+  background: var(--bg-1);
+  border: 1.5px solid var(--border-1);
+  border-radius: var(--r-sm);
+  color: var(--text-0);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  transition:
+    border-color var(--t-normal) ease,
+    box-shadow   var(--t-normal) ease,
+    background   var(--t-normal) ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 255, 135, 0.1);
+  background: var(--bg-2);
+}
+
+.form-input::placeholder { color: var(--text-3); }
+
+.form-input.is-error {
+  border-color: #FF4C4C;
+  box-shadow: 0 0 0 3px rgba(255, 76, 76, 0.08);
+}
+
+.form-input.is-valid {
+  border-color: rgba(0, 255, 135, 0.38);
+}
+
+/* ---- Error message ---- */
+.form-error {
+  font-size: 0.76rem;
+  color: #FF4C4C;
+  min-height: 1em;
+  line-height: 1.4;
+  transition: opacity var(--t-fast) ease;
+}
+
+/* ---- Password wrapper ---- */
+.pw-wrap {
+  position: relative;
+}
+
+.pw-wrap .form-input {
+  padding-right: 3rem;
+}
+
+.pw-toggle {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  color: var(--text-3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--t-fast) ease;
+}
+
+.pw-toggle:hover { color: var(--text-1); }
+
+/* ---- Password strength bar ---- */
+.pw-strength {
+  display: flex;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.pw-seg {
+  flex: 1;
+  height: 3px;
+  background: var(--bg-4);
+  border-radius: var(--r-full);
+  transition: background 0.3s ease;
+}
+
+.pw-seg.weak   { background: #FF4C4C; }
+.pw-seg.ok     { background: #FFB347; }
+.pw-seg.strong { background: var(--accent); }
+
+/* ---- Submit button ---- */
+.auth-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  width: 100%;
+  min-height: 48px;
+  padding: var(--s3) var(--s6);
+  margin-top: var(--s2);
+  border-radius: var(--r-full);
+  font-family: var(--font-display);
+  font-size: 0.925rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  background: var(--accent);
+  color: var(--bg-0);
+  border: none;
+  transition:
+    opacity   var(--t-normal) ease,
+    transform var(--t-fast)   var(--ease-spring),
+    box-shadow var(--t-normal) ease;
+}
+
+.auth-submit-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--accent-glow);
+}
+
+.auth-submit-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.auth-submit-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.auth-submit-btn.is-loading {
+  opacity: 0.65;
+  cursor: wait;
+  pointer-events: none;
+}
+
+/* ============================================================
+   WALLET PANEL
+   ============================================================ */
+.auth-panel--wallet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s5);
+}
+
+.auth-panel-desc {
+  font-size: 0.875rem;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+
+/* ---- Wallet buttons ---- */
+.wallet-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+.wallet-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  width: 100%;
+  min-height: 54px;
+  padding: var(--s3) var(--s5);
+  background: var(--bg-3);
+  border: 1.5px solid var(--border-1);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    background    var(--t-normal) ease,
+    border-color  var(--t-normal) ease,
+    transform     var(--t-fast)   var(--ease-spring),
+    box-shadow    var(--t-normal) ease;
+}
+
+.wallet-btn:hover {
+  background: var(--bg-4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.wallet-btn:hover.wc-btn  { border-color: rgba(59, 153, 252, 0.55); }
+.wallet-btn:hover.prv-btn { border-color: rgba(112, 102, 224, 0.55); }
+
+.wallet-btn:active {
+  transform: scale(0.98);
+}
+
+.wallet-btn.is-connecting {
+  opacity: 0.6;
+  cursor: wait;
+  pointer-events: none;
+}
+
+.wallet-btn-logo {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r-xs);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.wc-btn  .wallet-btn-logo { background: rgba(59, 153, 252, 0.12); }
+.prv-btn .wallet-btn-logo { background: rgba(112, 102, 224, 0.12); }
+
+.wallet-btn-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.wallet-btn-name {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-0);
+}
+
+.wallet-btn-sub {
+  font-size: 0.72rem;
+  color: var(--text-3);
+}
+
+/* ---- Connected state ---- */
+.wallet-connected {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s4);
+  padding: var(--s6);
+  background: var(--accent-dim);
+  border: 1.5px solid var(--border-accent);
+  border-radius: var(--r-md);
+  text-align: center;
+  animation: wc-pop 0.38s var(--ease-spring) both;
+}
+
+.wallet-connected[hidden] { display: none; }
+
+@keyframes wc-pop {
+  from { opacity: 0; transform: scale(0.88); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.wc-check {
+  width: 44px;
+  height: 44px;
+  background: var(--accent);
+  border-radius: var(--r-full);
+  display: grid;
+  place-items: center;
+  color: var(--bg-0);
+  flex-shrink: 0;
+}
+
+.wc-address {
+  font-family: 'Courier New', 'Lucida Console', monospace;
+  font-size: 0.8rem;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+}
+
+.wc-label {
+  font-size: 0.78rem;
+  color: var(--text-2);
+}
+
+/* ---- Trust note ---- */
+.wallet-trust-note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s2);
+  padding: var(--s3) var(--s4);
+  background: var(--bg-1);
+  border: 1px solid var(--border-0);
+  border-radius: var(--r-sm);
+  font-size: 0.75rem;
+  color: var(--text-3);
+  line-height: 1.5;
+}
+
+.wallet-trust-note svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--text-3);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.auth-footer {
+  padding: var(--s4) var(--s8);
+  border-top: 1px solid var(--border-0);
+  background: rgba(6, 8, 13, 0.82);
+  backdrop-filter: blur(12px);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 700px) {
+  .auth-panels {
+    grid-template-columns: 1fr;
+    gap: var(--s4);
+  }
+
+  .auth-divider {
+    flex-direction: row;
+    padding: 0;
+  }
+
+  .auth-divider-line {
+    flex: 1;
+    width: auto;
+    height: 1px;
+    min-height: 0;
+  }
+
+  .auth-main {
+    padding: var(--s5) var(--s4) var(--s4);
+    gap: var(--s5);
+  }
+
+  .auth-panel {
+    padding: var(--s5);
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-header { padding: var(--s4) var(--s4); }
+  .auth-footer { padding: var(--s3) var(--s4); }
+}

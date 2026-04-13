@@ -1,0 +1,653 @@
+/* ============================================================
+   DASHBOARD.CSS — Screen 4: Main Dashboard (empty shell)
+   ============================================================ */
+
+/* ============================================================
+   LAYOUT OVERRIDE — row instead of column for sidebar + main
+   ============================================================ */
+#screen-dashboard {
+  flex-direction: row;
+  overflow: hidden;
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.dash-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-1);
+  border-right: 1px solid var(--border-0);
+  z-index: var(--z-sticky);
+  overflow: hidden;
+  transition: left var(--t-normal) var(--ease-spring), box-shadow var(--t-normal) ease;
+}
+
+/* ---- Logo strip ---- */
+.dash-sidebar-logo {
+  padding: var(--s5) var(--s5) var(--s4);
+  border-bottom: 1px solid var(--border-0);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   SIDEBAR NAV
+   ============================================================ */
+.dash-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--s3) 0;
+}
+
+.dash-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dash-nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  width: 100%;
+  padding: var(--s3) var(--s5);
+  border: none;
+  background: none;
+  color: var(--text-2);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  transition:
+    color       var(--t-normal) ease,
+    background  var(--t-normal) ease;
+}
+
+.dash-nav-item:hover {
+  color: var(--text-0);
+  background: var(--bg-2);
+}
+
+/* Active state */
+.dash-nav-item.active {
+  color: var(--text-0);
+  background: var(--bg-2);
+}
+
+/* Green left-edge accent bar */
+.dash-nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 0 var(--r-full) var(--r-full) 0;
+  box-shadow: var(--accent-glow-sm);
+}
+
+/* ---- Nav icon ---- */
+.dash-nav-icon {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: inherit;
+  opacity: 0.75;
+}
+
+.dash-nav-item.active .dash-nav-icon {
+  opacity: 1;
+  color: var(--accent);
+}
+
+/* ---- Nav label ---- */
+.dash-nav-label { flex: 1; }
+
+/* ---- Notification badge ---- */
+.dash-nav-badge {
+  background: var(--accent);
+  color: var(--bg-0);
+  font-size: 0.6rem;
+  font-weight: 800;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: var(--r-full);
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   SIDEBAR BOTTOM — user strip
+   ============================================================ */
+.dash-sidebar-user {
+  padding: var(--s4) var(--s5);
+  border-top: 1px solid var(--border-0);
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   AVATAR (shared)
+   ============================================================ */
+.dash-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--r-full);
+  background: var(--bg-3);
+  border: 1.5px solid var(--border-1);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.01em;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.dash-avatar--sm {
+  width: 32px;
+  height: 32px;
+  font-size: 0.68rem;
+}
+
+/* ---- User info ---- */
+.dash-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.dash-user-name {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-0);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dash-user-sub {
+  font-size: 0.72rem;
+  color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================================================
+   MAIN AREA
+   ============================================================ */
+.dash-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ============================================================
+   TOP BAR
+   ============================================================ */
+.dash-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s4) var(--s7);
+  border-bottom: 1px solid var(--border-0);
+  background: rgba(6, 8, 13, 0.88);
+  backdrop-filter: blur(12px);
+  flex-shrink: 0;
+  min-height: 62px;
+  z-index: var(--z-sticky);
+}
+
+.dash-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+}
+
+.dash-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.dash-topbar-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-0);
+  letter-spacing: -0.015em;
+}
+
+/* Hamburger — desktop: hidden, mobile: shown */
+.dash-hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-sm);
+  color: var(--text-1);
+  cursor: pointer;
+  transition: background var(--t-fast) ease, color var(--t-fast) ease;
+  flex-shrink: 0;
+}
+
+.dash-hamburger:hover {
+  background: var(--bg-2);
+  color: var(--text-0);
+}
+
+/* Topbar avatar button */
+.dash-topbar-avatar {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: var(--r-full);
+  transition: opacity var(--t-fast) ease;
+}
+
+.dash-topbar-avatar:hover { opacity: 0.8; }
+
+/* ============================================================
+   SCROLLABLE CONTENT
+   ============================================================ */
+.dash-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--s7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s6);
+}
+
+/* ============================================================
+   GREETING CARD
+   ============================================================ */
+.dash-greeting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s6);
+  padding: var(--s6) var(--s7);
+  background: var(--bg-2);
+  border: 1.5px solid var(--border-0);
+  border-radius: var(--r-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Radial accent glow — top-left corner */
+.dash-greeting::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(0, 255, 135, 0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.dash-greeting-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  position: relative;
+}
+
+.dash-greeting-eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.dash-greeting-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--text-0);
+  margin: 0;
+}
+
+.dash-greeting-sub {
+  font-size: 0.9rem;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+/* ---- Coach badge on right ---- */
+.dash-greeting-coach {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s2);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.dash-coach-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: var(--r-md);
+  background: var(--bg-3);
+  border: 2px solid var(--border-1);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-1);
+  user-select: none;
+}
+
+/* Per-coach accent colouring */
+[data-active-coach="grinder"] .dash-coach-avatar {
+  color: #00FF87;
+  border-color: rgba(0, 255, 135, 0.45);
+  background: rgba(0, 255, 135, 0.06);
+}
+[data-active-coach="pacer"] .dash-coach-avatar {
+  color: #FF6B35;
+  border-color: rgba(255, 107, 53, 0.45);
+  background: rgba(255, 107, 53, 0.06);
+}
+[data-active-coach="coach"] .dash-coach-avatar {
+  color: #4E9FFF;
+  border-color: rgba(78, 159, 255, 0.45);
+  background: rgba(78, 159, 255, 0.06);
+}
+
+.dash-coach-tag {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  text-align: center;
+}
+
+/* ============================================================
+   LARGE PLACEHOLDER CARD — Today's Program
+   ============================================================ */
+.dash-placeholder-card {
+  background: var(--bg-2);
+  border: 1.5px dashed var(--border-1);
+  border-radius: var(--r-lg);
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Diagonal stripe texture */
+.dash-placeholder-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 20px,
+    rgba(255, 255, 255, 0.012) 20px,
+    rgba(255, 255, 255, 0.012) 40px
+  );
+  pointer-events: none;
+}
+
+.dash-placeholder-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s4);
+  padding: var(--s8) var(--s6);
+  text-align: center;
+  max-width: 380px;
+  position: relative;
+}
+
+.dash-placeholder-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--bg-3);
+  border: 1.5px solid var(--border-1);
+  border-radius: var(--r-md);
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.dash-placeholder-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-1);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.dash-placeholder-sub {
+  font-size: 0.875rem;
+  color: var(--text-3);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.dash-placeholder-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px var(--s4);
+  background: var(--accent-dim);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--r-full);
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ============================================================
+   STATS ROW — empty placeholder cards
+   ============================================================ */
+.dash-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s4);
+}
+
+.dash-stat-card {
+  padding: var(--s5);
+  background: var(--bg-2);
+  border: 1.5px solid var(--border-0);
+  border-radius: var(--r-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.dash-stat-label {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.dash-stat-value {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: var(--text-3);
+  line-height: 1;
+}
+
+.dash-stat-hint {
+  font-size: 0.72rem;
+  color: var(--text-3);
+  opacity: 0.5;
+}
+
+/* ============================================================
+   MOBILE OVERLAY (tap outside to close sidebar)
+   ============================================================ */
+.dash-overlay {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 590;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--t-normal) ease;
+}
+
+.dash-overlay.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ============================================================
+   MOBILE BOTTOM NAV
+   ============================================================ */
+.dash-bottom-nav {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(6, 8, 13, 0.96);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border-0);
+  z-index: var(--z-sticky);
+}
+
+.dash-bottom-nav-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dash-bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: var(--s2) var(--s1) var(--s3);
+  background: none;
+  border: none;
+  color: var(--text-3);
+  font-size: 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color var(--t-fast) ease;
+}
+
+.dash-bottom-nav-item.active { color: var(--accent); }
+.dash-bottom-nav-item:hover  { color: var(--text-1); }
+
+.dash-bottom-nav-icon {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* ---- Tablet: sidebar becomes a slide-in drawer ---- */
+@media (max-width: 900px) {
+  .dash-sidebar {
+    position: absolute;
+    left: -260px;
+    top: 0;
+    bottom: 0;
+    z-index: 600;
+    box-shadow: none;
+  }
+
+  .dash-sidebar.is-open {
+    left: 0;
+    box-shadow: 6px 0 40px rgba(0, 0, 0, 0.55);
+  }
+
+  .dash-overlay   { display: block; }
+  .dash-hamburger { display: flex; }
+  .dash-bottom-nav { display: block; }
+
+  .dash-content {
+    padding-bottom: calc(var(--s6) + 64px);
+  }
+}
+
+/* ---- Phone ---- */
+@media (max-width: 600px) {
+  .dash-topbar { padding: var(--s3) var(--s4); }
+
+  .dash-content {
+    padding: var(--s5) var(--s4) calc(var(--s4) + 64px);
+    gap: var(--s4);
+  }
+
+  .dash-greeting {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s4);
+    padding: var(--s5);
+  }
+
+  .dash-greeting-coach {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+  }
+
+  .dash-stats-row { grid-template-columns: 1fr 1fr; }
+  .dash-stats-row .dash-stat-card:last-child { grid-column: span 2; }
+}
+
+@media (max-width: 360px) {
+  .dash-stats-row { grid-template-columns: 1fr; }
+  .dash-stats-row .dash-stat-card:last-child { grid-column: span 1; }
+}

@@ -1,0 +1,479 @@
+/* ============================================================
+   COACHES.CSS — Screen 2: AI Coach Recommendation
+   ============================================================ */
+
+/* ============================================================
+   PER-COACH COLOR TOKENS
+   Cascade down to every child that references --coach-color
+   ============================================================ */
+.coach-card[data-coach="grinder"] {
+  --coach-color:     #00FF87;
+  --coach-color-dim: rgba(0, 255, 135, 0.10);
+  --coach-glow:      0 0 28px rgba(0, 255, 135, 0.32), 0 0 60px rgba(0, 255, 135, 0.10);
+}
+.coach-card[data-coach="pacer"] {
+  --coach-color:     #FF6B35;
+  --coach-color-dim: rgba(255, 107, 53, 0.10);
+  --coach-glow:      0 0 28px rgba(255, 107, 53, 0.32), 0 0 60px rgba(255, 107, 53, 0.10);
+}
+.coach-card[data-coach="coach"] {
+  --coach-color:     #4E9FFF;
+  --coach-color-dim: rgba(78, 159, 255, 0.10);
+  --coach-glow:      0 0 28px rgba(78, 159, 255, 0.32), 0 0 60px rgba(78, 159, 255, 0.10);
+}
+
+/* ============================================================
+   SCREEN CONTAINER
+   Both children (loading + reveal) are absolute so they layer
+   ============================================================ */
+#screen-coaches {
+  position: relative; /* needed so absolute children use this as their container */
+  overflow: hidden;
+}
+
+/* ============================================================
+   PHASE 1 — LOADING / THINKING OVERLAY
+   ============================================================ */
+.coaches-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-0);
+
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+
+.coaches-loading.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ---- Center block ---- */
+.loading-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s5);
+  text-align: center;
+  user-select: none;
+}
+
+/* ---- PIXELATED SPINNER ----
+   A single 8×8px div whose box-shadows form 8 square "pixels"
+   arranged in a circle. Rotation uses steps(8) for chunky,
+   pixel-art stepping rather than smooth interpolation.
+   ------------------------------------------------------------ */
+.pxl-spinner-wrap {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pxl-spinner {
+  width: 8px;
+  height: 8px;
+  background: #FF6B35; /* the "leading" pixel */
+
+  /*
+    8 square pixels on a circle of radius 26px.
+    Opacity decreases clockwise so the bright pixel
+    appears to "chase" around the ring.
+    x = sin(θ)×26, y = -cos(θ)×26  (0° = top)
+  */
+  box-shadow:
+    /*  0°  top          */  0px   -26px 0 0  #FF6B35,
+    /*  45° top-right    */  18px  -18px 0 0  rgba(255, 107, 53, 0.78),
+    /*  90° right        */  26px    0px 0 0  rgba(255, 107, 53, 0.56),
+    /* 135° bottom-right */  18px   18px 0 0  rgba(255, 107, 53, 0.38),
+    /* 180° bottom       */  0px    26px 0 0  rgba(255, 107, 53, 0.24),
+    /* 225° bottom-left  */ -18px   18px 0 0  rgba(255, 107, 53, 0.14),
+    /* 270° left         */ -26px    0px 0 0  rgba(255, 107, 53, 0.07),
+    /* 315° top-left     */ -18px  -18px 0 0  rgba(255, 107, 53, 0.03);
+
+  animation: pxl-rotate 0.96s steps(8, end) infinite;
+}
+
+@keyframes pxl-rotate {
+  to { transform: rotate(360deg); }
+}
+
+/* ---- Loading text ---- */
+.loading-headline {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+}
+
+/* Animated ellipsis using CSS content (modern browsers) */
+.loading-headline::after {
+  content: '';
+  display: inline-block;
+  animation: ellipsis 1.8s steps(4, end) infinite;
+}
+
+@keyframes ellipsis {
+  0%   { content: '';    }
+  25%  { content: '.';   }
+  50%  { content: '..';  }
+  75%  { content: '...'; }
+}
+
+.loading-sub {
+  font-size: 0.825rem;
+  color: var(--text-3);
+  min-height: 1.2em; /* prevent layout shift during text swap */
+  transition: opacity 0.22s ease;
+}
+
+.loading-sub.swapping { opacity: 0; }
+
+/* ============================================================
+   PHASE 2 — COACH REVEAL AREA
+   ============================================================ */
+.coaches-reveal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+
+.coaches-reveal.is-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ---- Header ---- */
+.coaches-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s5) var(--s8);
+  border-bottom: 1px solid var(--border-0);
+  background: rgba(6, 8, 13, 0.88);
+  backdrop-filter: blur(12px);
+  flex-shrink: 0;
+  z-index: var(--z-sticky);
+}
+
+.coaches-header-sub {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+/* ---- Scrollable content ---- */
+.coaches-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--s8) var(--s8) var(--s4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s8);
+}
+
+/* ---- Intro copy ---- */
+.coaches-intro {
+  max-width: 580px;
+}
+
+.coaches-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--s3);
+}
+
+.coaches-desc {
+  font-size: 0.925rem;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+
+.coaches-rec-name {
+  color: var(--text-0);
+  font-weight: 700;
+}
+
+/* ============================================================
+   CARDS GRID
+   ============================================================ */
+.coaches-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s4);
+  align-items: start;
+}
+
+@media (max-width: 880px) {
+  .coaches-grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+  }
+  .coaches-main { padding: var(--s6) var(--s5) var(--s4); }
+}
+
+@media (max-width: 480px) {
+  .coaches-main { padding: var(--s5) var(--s4) var(--s4); }
+  .coaches-header { padding: var(--s4) var(--s4); }
+  .coaches-footer { padding: var(--s3) var(--s4); }
+}
+
+/* ============================================================
+   COACH CARD — base
+   ============================================================ */
+.coach-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-2);
+  border: 1.5px solid var(--border-0);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  cursor: default;
+
+  /* Stagger-in state */
+  opacity: 0;
+  transform: translateY(28px);
+
+  transition:
+    border-color  var(--t-normal) ease,
+    box-shadow    var(--t-normal) ease,
+    transform     var(--t-normal) var(--ease-spring);
+}
+
+/* ---- Stagger reveal animation ---- */
+.coach-card.card-in {
+  animation: cardReveal 0.48s var(--ease-out) forwards;
+}
+.coach-card.card-in:nth-child(1) { animation-delay:   0ms; }
+.coach-card.card-in:nth-child(2) { animation-delay: 120ms; }
+.coach-card.card-in:nth-child(3) { animation-delay: 240ms; }
+
+@keyframes cardReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Hover ---- */
+.coach-card:hover {
+  border-color: var(--coach-color);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4), var(--coach-glow);
+  transform: translateY(-4px);
+}
+
+/* ---- Recommended (auto-selected on enter) ---- */
+.coach-card.recommended {
+  border-color: var(--coach-color);
+  box-shadow: 0 0 0 1px var(--coach-color), var(--coach-glow);
+  transform: scale(1.02);
+  z-index: 2;
+}
+
+.coach-card.recommended:hover {
+  transform: scale(1.02) translateY(-3px);
+}
+
+/* ---- User-chosen (after clicking Choose) ---- */
+.coach-card.chosen {
+  border-color: var(--coach-color);
+  box-shadow: 0 0 0 2px var(--coach-color), var(--coach-glow);
+}
+
+/* ============================================================
+   CARD — TOP BAND
+   ============================================================ */
+.coach-card-top {
+  position: relative;
+  padding: var(--s5) var(--s5) var(--s4);
+  background: var(--coach-color-dim);
+  border-bottom: 1px solid var(--border-0);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s3);
+  min-height: 80px;
+}
+
+/* ---- Placeholder Avatar (A / B / C) ---- */
+.coach-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--r-md);
+  background: var(--coach-color-dim);
+  border: 2px solid var(--coach-color);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--coach-color);
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+  /* Reserve space for when user provides real image */
+  overflow: hidden;
+}
+
+/* ---- Recommended Badge ---- */
+.coach-badge-rec {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s1);
+  padding: 3px var(--s3);
+  border-radius: var(--r-full);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(0, 255, 135, 0.12);
+  color: var(--accent);
+  border: 1px solid rgba(0, 255, 135, 0.35);
+  white-space: nowrap;
+
+  /* Entry animation */
+  animation: badgePop 0.4s var(--ease-spring) both;
+}
+
+@keyframes badgePop {
+  from { opacity: 0; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.coach-badge-rec[hidden] { display: none; }
+
+/* ============================================================
+   CARD — BODY
+   ============================================================ */
+.coach-card-body {
+  flex: 1;
+  padding: var(--s5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+.coach-specialty-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--coach-color);
+}
+
+.coach-name {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--text-0);
+  line-height: 1.1;
+}
+
+.coach-blurb {
+  font-size: 0.875rem;
+  color: var(--text-2);
+  line-height: 1.7;
+  flex: 1;
+}
+
+.coach-traits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  padding-top: var(--s1);
+}
+
+.coach-trait {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-2);
+  background: var(--bg-3);
+  padding: 3px var(--s3);
+  border-radius: var(--r-full);
+  border: 1px solid var(--border-1);
+}
+
+/* ============================================================
+   CARD — FOOTER / CTA
+   ============================================================ */
+.coach-card-footer {
+  padding: var(--s3) var(--s5) var(--s5);
+}
+
+.coach-choose-btn {
+  width: 100%;
+  min-height: 44px;
+  padding: var(--s3) var(--s4);
+  border-radius: var(--r-full);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition:
+    background   var(--t-normal) ease,
+    color        var(--t-normal) ease,
+    border-color var(--t-normal) ease,
+    box-shadow   var(--t-normal) ease,
+    transform    var(--t-fast)   var(--ease-spring);
+
+  /* Default: outlined */
+  background: transparent;
+  color: var(--coach-color);
+  border: 1.5px solid var(--coach-color);
+}
+
+.coach-choose-btn:hover {
+  background: var(--coach-color-dim);
+  box-shadow: var(--coach-glow);
+  transform: translateY(-1px);
+}
+
+.coach-choose-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* Recommended card — button pre-filled */
+.coach-card.recommended .coach-choose-btn {
+  background: var(--coach-color);
+  color: var(--bg-0);
+}
+
+.coach-card.recommended .coach-choose-btn:hover {
+  box-shadow: var(--coach-glow);
+}
+
+/* Chosen state — button confirms */
+.coach-card.chosen .coach-choose-btn {
+  background: var(--coach-color);
+  color: var(--bg-0);
+  box-shadow: var(--coach-glow);
+}
+
+/* ============================================================
+   SCREEN FOOTER — Back button
+   ============================================================ */
+.coaches-footer {
+  padding: var(--s4) var(--s8);
+  border-top: 1px solid var(--border-0);
+  background: rgba(6, 8, 13, 0.82);
+  backdrop-filter: blur(12px);
+  flex-shrink: 0;
+}

@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#06080D" />
+  <meta name="description" content="APEX — AI-powered fitness coaching personalised to you." />
+  <title>APEX — AI Fitness Coach</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/questionnaire.css" />
+  <link rel="stylesheet" href="css/coaches.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+<!-- ================================================================
+     SCREEN 1 — QUESTIONNAIRE
+     ================================================================ -->
+<section id="screen-questionnaire" class="screen active" aria-label="Fitness questionnaire">
+
+  <!-- ── Header ─────────────────────────────────────────────── -->
+  <header class="q-header" role="banner">
+    <div class="q-logo" aria-label="APEX home">
+      <span class="logo-mark" aria-hidden="true">A</span>
+      <span class="logo-text">APEX</span>
+    </div>
+
+    <div class="q-progress-wrap" role="progressbar"
+         aria-valuemin="1" aria-valuemax="7" aria-valuenow="1"
+         aria-label="Questionnaire progress">
+      <div class="q-progress-track">
+        <div class="q-progress-bar" id="q-progress-bar"></div>
+      </div>
+      <span class="q-step-count" id="q-step-count" aria-live="polite">1 / 7</span>
+    </div>
+  </header>
+
+  <!-- ── Steps ──────────────────────────────────────────────── -->
+  <main class="q-main" id="q-main">
+
+    <!-- ╔══════════════════════════════════════════════════════╗
+         ║  STEP 1 — Primary Goal                              ║
+         ╚══════════════════════════════════════════════════════╝ -->
+    <div class="q-step active" data-step="0" role="group" aria-labelledby="q1-heading">
+      <div class="q-content">
+        <span class="q-step-label" aria-hidden="true">Step 01</span>
+        <h1 class="q-question" id="q1-heading">
+          What's your<br><em>primary goal?</em>
+        </h1>
+        <p class="q-sub">This shapes everything — your plan, your pace, your coach.</p>
+
+        <div class="q-options q-options--2col" role="radiogroup" aria-label="Primary goal">
+
+          <button class="q-option" data-value="lose_weight" role="radio" aria-checked="false"
+                  aria-label="Lose Weight — Burn fat, improve body composition">
+            <span class="q-option-icon" aria-hidden="true">🔥</span>
+            <span class="q-option-label">Lose Weight</span>
+            <span class="q-option-desc">Burn fat, improve body composition</span>
+          </button>
+
+          <button class="q-option" data-value="build_muscle" role="radio" aria-checked="false"
+                  aria-label="Build Muscle — Increase strength and muscle mass">
+            <span class="q-option-icon" aria-hidden="true">💪</span>
+            <span class="q-option-label">Build Muscle</span>
+            <span class="q-option-desc">Increase strength and muscle mass</span>
+          </button>
+
+          <button class="q-option" data-value="improve_endurance" role="radio" aria-checked="false"
+                  aria-label="Improve Endurance — Build stamina and cardiovascular fitness">
+            <span class="q-option-icon" aria-hidden="true">🏃</span>
+            <span class="q-option-label">Improve Endurance</span>
+            <span class="q-option-desc">Build stamina and cardiovascular fitness</span>
+          </button>
+
+          <button class="q-option" data-value="general_fitness" role="radio" aria-checked="false"
+                  aria-label="General Fitness — Overall health and well-being">
+            <span class="q-option-icon" aria-hidden="true">⚡</span>
+            <span class="q-option-label">General Fitness</span>
+            <span class="q-option-desc">Overall health and well-being</span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════════════════════════════════════════╗
+         ║  STEP 2 — Activity Level                            ║
+         ╚══════════════════════════════════════════════════════╝ -->
+    <div class="q-step" data-step="1" role="group" aria-labelledby="q2-heading">
+      <div class="q-content">
+        <span class="q-step-label" aria-hidden="true">Step 02</span>
+        <h1 class="q-question" id="q2-heading">
+          How active are you<br><em>right now?</em>
+        </h1>
+        <p class="q-sub">Be honest — we calibrate your program to where you are, not where you want to be.</p>
+
+        <div class="q-options q-options--3col" role="radiogroup" aria-label="Activity level">
+
+          <button class="q-option" data-value="sedentary" role="radio" aria-checked="false"
+                  aria-label="Sedentary — Desk job, minimal exercise">
+            <span class="q-option-icon" aria-hidden="true">🛋️</span>
+            <span class="q-option-label">Sedentary</span>
+            <span class="q-option-desc">Desk job, minimal exercise</span>
+          </button>
+
+          <button class="q-option" data-value="lightly_active" role="radio" aria-checked="false"
+                  aria-label="Lightly Active — Exercise 1 to 3 times per week">
+            <span class="q-option-icon" aria-hidden="true">🚶</span>
+            <span class="q-option-label">Lightly Active</span>
+            <span class="q-option-desc">Exercise 1–3 times / week</span>
+          </button>
+
+          <button class="q-option" data-value="very_active" role="radio" aria-checked="false"
+                  aria-label="Very Active — Train 4 or more times per week regularly">
+            <span class="q-option-icon" aria-hidden="true">🏋️</span>
+            <span class="q-option-label">Very Active</span>
+            <span class="q-option-desc">Train 4+ times / week regularly</span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════════════════════════════════════════╗
+         ║  STEP 3 — Equipment                                 ║
+         ╚══════════════════════════════════════════════════════╝ -->
+    <div class="q-step" data-step="2" role="group" aria-labelledby="q3-heading">
+      <div class="q-content">
+        <span class="q-step-label" aria-hidden="true">Step 03</span>
+        <h1 class="q-question" id="q3-heading">
+          What equipment<br><em>do you have?</em>
+        </h1>
+        <p class="q-sub">We'll design programs around what's actually available to you.</p>
+
+        <div class="q-options q-options--3col" role="radiogroup" aria-label="Available equipment">
+
+          <button class="q-option" data-value="none" role="radio" aria-checked="false"
+                  aria-label="No Equipment — Bodyweight workouts only">
+            <span class="q-option-icon" aria-hidden="true">🏠</span>
+            <span class="q-option-label">No Equipment</span>
+            <span class="q-option-desc">Bodyweight workouts only</span>
+          </button>
+
+          <button class="q-option" data-value="home_gym" role="radio" aria-checked="false"
+                  aria-label="Home Gym — Dumbbells, resistance bands, bench">
+            <span class="q-option-icon" aria-hidden="true">🏋️</span>
+            <span class="q-option-label">Home Gym</span>
+            <span class="q-option-desc">Dumbbells, resistance bands, bench</span>
+          </button>
+
+          <button class="q-option" data-value="full_gym" role="radio" aria-checked="false"
+                  aria-label="Full Gym — Complete access to all gym equipment">
+            <span class="q-option-icon" aria-hidden="true">🏟️</span>
+            <span class="q-option-label">Full Gym</span>
+            <span class="q-option-desc">Complete access to all equipment</span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════════════════════════════════════════╗
+         ║  STEP 4 — Days Per Week                             ║
+         ╚══════════════════════════════════════════════════════╝ -->
+    <div class="q-step" data-step="3" role="group" aria-labelledby="q4-heading">
+      <div class="q-content">
+        <span class="q-step-label" aria-hidden="true">Step 04</span>
+        <h1 class="q-question" id="q4-heading">
+          Days per week<br><em>you can train?</em>
+        </h1>
+        <p class="q-sub">Consistency beats intensity. We'll build a plan you can actually stick to.</p>
+
+        <div class="q-days-picker" role="group" aria-label="Days per week selector">
+          <div class="days-display" aria-live="polite">
+            <span class="days-number" id="days-number" aria-label="3 days per week">3</span>
+            <span class="days-label">days per week</span>
+          </div>
+
+          <div class="days-grid" role="radiogroup" aria-label="Select number of days">
+            <button class="day-btn" data-day="1" aria-label="1 day per week">1</button>
+            <button class="day-btn" data-day="2" aria-label="2 days per week">2</button>
+            <button class="day-btn selected" data-day="3" aria-label="3 days per week" aria-pressed="true">3</button>
+            <button class="day-btn" data-day="4" aria-label="4 days per week">4</button>
+            <button class="day-btn" data-day="5" aria-label="5 days per week">5</button>
+            <button class="day-btn" data-day="6" aria-label="6 days per week">6</button>
+            <button class="day-btn" data-day="7" aria-label="7 days per week">7</button>
+          </div>
+
+          <div class="days-hint" aria-hidden="true">
+            <span>Casual</span>
+            <span>Dedicated</span>
+            <span>Elite</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════════════════════════════════════════╗
+         ║  STEP 5 — Injuries / Limitations (optional)         ║
+         ╚══════════════════════════════════════════════════════╝ -->
+    <div class="q-step" data-step="4" role="group" aria-labelledby="q5-heading">
+      <div class="q-content">
+        <span class="q-step-label" aria-hidden="true">Step 05</span>
+        <h1 class="q-question" id="q5-heading">
+          Any injuries or<br><em>limitations?</em>
+        </h1>
+        <p class="q-sub">We'll modify your program to work around physical constraints. This step is optional.</p>
+
+        <div class="q-text-block">
+          <textarea
+            id="injuries-input"
+            class="q-textarea"
+            placeholder="e.g. bad knees, lower back pain, shoulder injury… or leave blank if none"
+            rows="4"
+            maxlength="300"
+            aria-label="Describe any injuries or limitations"
+            aria-describedby="injuries-hint"
+          ></textarea>
+          <div class="q-textarea-meta" id="injuries-hint">
+            <span class="q-badge-optional">Optional</span>
+            <span class="q-char-count"><span id="q-char-count">0</span> / 300</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════════════════════════════════════════╗
+         ║  STEP 6 — Age                                       ║
+         ╚══════════════════════════════════════════════════════╝ -->
+    <div class="q-step" data-step="5" role="group" aria-labelledby="q6-heading">
+      <div class="q-content">
+        <span class="q-step-label" aria-hidden="true">Step 06</span>
+        <h1 class="q-question" id="q6-heading">
+          How old<br><em>are you?</em>
+        </h1>
+        <p class="q-sub">Age influences recovery, hormone levels, and training intensity recommendations.</p>
+
+        <div class="q-age-block">
+          <div class="age-row">
+            <input
+              type="number"
+              id="age-input"
+              class="q-number-input"
+              min="13"
+              max="100"
+              placeholder="25"
+              aria-label="Your age"
+              aria-describedby="age-hint"
+            />
+            <span class="age-unit">years old</span>
+          </div>
+          <p class="age-hint" id="age-hint">Enter a value between 13 and 100</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════════════════════════════════════════╗
+         ║  STEP 7 — Biological Sex                            ║
+         ╚══════════════════════════════════════════════════════╝ -->
+    <div class="q-step" data-step="6" role="group" aria-labelledby="q7-heading">
+      <div class="q-content">
+        <span class="q-step-label" aria-hidden="true">Step 07</span>
+        <h1 class="q-question" id="q7-heading">
+          Your biological<br><em>sex?</em>
+        </h1>
+        <p class="q-sub">Used to tailor hormonal and physiological training recommendations.</p>
+
+        <div class="q-options q-options--3col" role="radiogroup" aria-label="Biological sex">
+
+          <button class="q-option" data-value="male" role="radio" aria-checked="false"
+                  aria-label="Male">
+            <span class="q-option-icon" aria-hidden="true">♂</span>
+            <span class="q-option-label">Male</span>
+          </button>
+
+          <button class="q-option" data-value="female" role="radio" aria-checked="false"
+                  aria-label="Female">
+            <span class="q-option-icon" aria-hidden="true">♀</span>
+            <span class="q-option-label">Female</span>
+          </button>
+
+          <button class="q-option" data-value="prefer_not_to_say" role="radio" aria-checked="false"
+                  aria-label="Prefer not to say">
+            <span class="q-option-icon" aria-hidden="true">✦</span>
+            <span class="q-option-label">Prefer not to say</span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+  </main><!-- /.q-main -->
+
+  <!-- ── Footer Nav ──────────────────────────────────────────── -->
+  <footer class="q-footer" role="navigation" aria-label="Questionnaire navigation">
+    <button class="q-btn q-btn--back" id="btn-back" aria-label="Go to previous step"
+            style="visibility:hidden">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <path d="M9 3L5 7l4 4" stroke="currentColor" stroke-width="1.6"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back
+    </button>
+
+    <button class="q-btn q-btn--next" id="btn-next" disabled aria-label="Continue to next step">
+      Continue
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.6"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </footer>
+
+</section><!-- /#screen-questionnaire -->
+
+
+<!-- ================================================================
+     SCREEN 2 — COACH RECOMMENDATION
+     ================================================================ -->
+<section id="screen-coaches" class="screen" aria-label="Choose your AI coach">
+
+  <!-- ── Phase 1: Loading / Thinking ──────────────────────────── -->
+  <div class="coaches-loading" id="coaches-loading" role="status" aria-live="polite">
+    <div class="loading-center">
+      <div class="pxl-spinner-wrap" aria-hidden="true">
+        <div class="pxl-spinner"></div>
+      </div>
+      <p class="loading-headline">Analysing your profile</p>
+      <p class="loading-sub" id="loading-sub">Matching you with the right coach…</p>
+    </div>
+  </div>
+
+  <!-- ── Phase 2: Coach Cards ──────────────────────────────────── -->
+  <div class="coaches-reveal" id="coaches-reveal">
+
+    <!-- Header -->
+    <header class="coaches-header">
+      <div class="q-logo" aria-label="APEX">
+        <span class="logo-mark" aria-hidden="true">A</span>
+        <span class="logo-text">APEX</span>
+      </div>
+      <p class="coaches-header-sub">Step 2 of 4</p>
+    </header>
+
+    <!-- Content -->
+    <main class="coaches-main">
+
+      <div class="coaches-intro">
+        <h1 class="coaches-title">Meet your <em>AI coaches</em></h1>
+        <p class="coaches-desc">
+          Based on your profile, we recommend
+          <strong class="coaches-rec-name" id="coaches-rec-name">The Coach</strong>.
+          All three are available — choose the one that speaks to you.
+        </p>
+      </div>
+
+      <div class="coaches-grid" id="coaches-grid">
+
+        <!-- ╔══════════════════════════════════════╗
+             ║  THE GRINDER                         ║
+             ╚══════════════════════════════════════╝ -->
+        <article class="coach-card" data-coach="grinder"
+                 aria-label="The Grinder — Strength and Hypertrophy coach">
+
+          <div class="coach-card-top">
+            <div class="coach-avatar" aria-hidden="true">A</div>
+            <span class="coach-badge-rec" id="badge-grinder" hidden
+                  aria-label="Recommended for you">
+              ★ Recommended
+            </span>
+          </div>
+
+          <div class="coach-card-body">
+            <span class="coach-specialty-tag">Strength &amp; Hypertrophy</span>
+            <h2 class="coach-name">The Grinder</h2>
+            <p class="coach-blurb">
+              Relentless. Direct. Zero excuses. I program you to add plates every
+              single week and build a physique that commands respect. We lift heavy,
+              we recover right, and we grow.
+            </p>
+            <div class="coach-traits" aria-label="Training focus areas">
+              <span class="coach-trait">Heavy Lifting</span>
+              <span class="coach-trait">Progressive Overload</span>
+              <span class="coach-trait">Hypertrophy</span>
+            </div>
+          </div>
+
+          <div class="coach-card-footer">
+            <button class="coach-choose-btn" data-coach="grinder"
+                    aria-label="Choose The Grinder as your coach">
+              Choose The Grinder
+            </button>
+          </div>
+
+        </article>
+
+        <!-- ╔══════════════════════════════════════╗
+             ║  THE PACER                           ║
+             ╚══════════════════════════════════════╝ -->
+        <article class="coach-card" data-coach="pacer"
+                 aria-label="The Pacer — Endurance and Cardio coach">
+
+          <div class="coach-card-top">
+            <div class="coach-avatar" aria-hidden="true">B</div>
+            <span class="coach-badge-rec" id="badge-pacer" hidden
+                  aria-label="Recommended for you">
+              ★ Recommended
+            </span>
+          </div>
+
+          <div class="coach-card-body">
+            <span class="coach-specialty-tag">Endurance &amp; Cardio</span>
+            <h2 class="coach-name">The Pacer</h2>
+            <p class="coach-blurb">
+              Steady wins the race. I build your aerobic engine through smart
+              periodisation and strategic pacing. Whether it's your first 5K or
+              an ultra, I'll get you there without burning out.
+            </p>
+            <div class="coach-traits" aria-label="Training focus areas">
+              <span class="coach-trait">Cardiovascular Fitness</span>
+              <span class="coach-trait">Zone 2 Training</span>
+              <span class="coach-trait">Periodisation</span>
+            </div>
+          </div>
+
+          <div class="coach-card-footer">
+            <button class="coach-choose-btn" data-coach="pacer"
+                    aria-label="Choose The Pacer as your coach">
+              Choose The Pacer
+            </button>
+          </div>
+
+        </article>
+
+        <!-- ╔══════════════════════════════════════╗
+             ║  THE COACH                           ║
+             ╚══════════════════════════════════════╝ -->
+        <article class="coach-card" data-coach="coach"
+                 aria-label="The Coach — Balanced General Fitness coach">
+
+          <div class="coach-card-top">
+            <div class="coach-avatar" aria-hidden="true">C</div>
+            <span class="coach-badge-rec" id="badge-coach" hidden
+                  aria-label="Recommended for you">
+              ★ Recommended
+            </span>
+          </div>
+
+          <div class="coach-card-body">
+            <span class="coach-specialty-tag">Balanced General Fitness</span>
+            <h2 class="coach-name">The Coach</h2>
+            <p class="coach-blurb">
+              The full package. I blend strength, cardio, and mobility into a
+              sustainable program that evolves as you do. Perfect for those who
+              want everything — and the discipline to get there.
+            </p>
+            <div class="coach-traits" aria-label="Training focus areas">
+              <span class="coach-trait">Balanced Training</span>
+              <span class="coach-trait">Mobility &amp; Recovery</span>
+              <span class="coach-trait">Long-Term Gains</span>
+            </div>
+          </div>
+
+          <div class="coach-card-footer">
+            <button class="coach-choose-btn" data-coach="coach"
+                    aria-label="Choose The Coach as your coach">
+              Choose The Coach
+            </button>
+          </div>
+
+        </article>
+
+      </div><!-- /.coaches-grid -->
+    </main>
+
+    <!-- Footer nav -->
+    <footer class="coaches-footer">
+      <button class="q-btn q-btn--back" id="coaches-btn-back"
+              aria-label="Go back to questionnaire">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M9 3L5 7l4 4" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back
+      </button>
+    </footer>
+
+  </div><!-- /.coaches-reveal -->
+
+</section><!-- /#screen-coaches -->
+
+
+<!-- ================================================================
+     SCREEN 3 — SIGN UP
+     ================================================================ -->
+<section id="screen-auth" class="screen" aria-label="Create your account">
+
+  <!-- ── Header ─────────────────────────────────────────────── -->
+  <header class="auth-header">
+    <div class="q-logo" aria-label="APEX">
+      <span class="logo-mark" aria-hidden="true">A</span>
+      <span class="logo-text">APEX</span>
+    </div>
+    <p class="auth-header-sub">Step 3 of 4</p>
+  </header>
+
+  <!-- ── Main ───────────────────────────────────────────────── -->
+  <main class="auth-main">
+
+    <!-- Coach confirmation pill -->
+    <div class="auth-coach-pill" aria-label="Your selected coach">
+      <span class="auth-coach-pill-label">Your coach</span>
+      <span class="auth-coach-pill-dot" aria-hidden="true"></span>
+      <span class="auth-coach-pill-name" id="auth-coach-name">The Coach</span>
+    </div>
+
+    <!-- Intro -->
+    <div>
+      <h1 class="auth-title">Create your <em>account</em></h1>
+      <p class="auth-desc">Your profile is saved. Lock it in to start training.</p>
+    </div>
+
+    <!-- Two-panel grid -->
+    <div class="auth-panels">
+
+      <!-- ╔══════════════════════════════════════╗
+           ║  LEFT — EMAIL SIGN UP                ║
+           ╚══════════════════════════════════════╝ -->
+      <div class="auth-panel auth-panel--email">
+
+        <div class="auth-panel-header">
+          <div class="auth-panel-icon" aria-hidden="true">
+            <!-- Envelope icon -->
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <rect x="2" y="4" width="14" height="10" rx="1.5"
+                    stroke="currentColor" stroke-width="1.3"/>
+              <path d="M2 5.5l7 5 7-5" stroke="currentColor" stroke-width="1.3"
+                    stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h2 class="auth-panel-title">Email Sign Up</h2>
+        </div>
+
+        <form class="auth-form" id="email-form" novalidate>
+
+          <!-- Name -->
+          <div class="form-group">
+            <label class="form-label" for="field-name">Full Name</label>
+            <input
+              type="text"
+              id="field-name"
+              class="form-input"
+              placeholder="Alex Johnson"
+              autocomplete="name"
+              aria-describedby="err-name"
+            />
+            <span class="form-error" id="err-name" aria-live="polite"></span>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="field-email">Email Address</label>
+            <input
+              type="email"
+              id="field-email"
+              class="form-input"
+              placeholder="alex@example.com"
+              autocomplete="email"
+              aria-describedby="err-email"
+            />
+            <span class="form-error" id="err-email" aria-live="polite"></span>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="form-label" for="field-password">Password</label>
+            <div class="pw-wrap">
+              <input
+                type="password"
+                id="field-password"
+                class="form-input"
+                placeholder="Min. 8 characters"
+                autocomplete="new-password"
+                aria-describedby="err-pass"
+              />
+              <button
+                type="button"
+                class="pw-toggle"
+                id="pw-toggle"
+                aria-label="Show password"
+              ><!-- SVG injected by JS --></button>
+            </div>
+            <!-- Strength bar -->
+            <div class="pw-strength" aria-hidden="true">
+              <div class="pw-seg"></div>
+              <div class="pw-seg"></div>
+              <div class="pw-seg"></div>
+            </div>
+            <span class="form-error" id="err-pass" aria-live="polite"></span>
+          </div>
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            class="auth-submit-btn"
+            id="email-submit"
+            disabled
+            aria-label="Create your APEX account"
+          >
+            Create Account
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.6"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+        </form>
+      </div><!-- /.auth-panel--email -->
+
+      <!-- ── Divider ── -->
+      <div class="auth-divider" aria-hidden="true">
+        <span class="auth-divider-line"></span>
+        <span class="auth-divider-or">or</span>
+        <span class="auth-divider-line"></span>
+      </div>
+
+      <!-- ╔══════════════════════════════════════╗
+           ║  RIGHT — CONNECT WALLET              ║
+           ╚══════════════════════════════════════╝ -->
+      <div class="auth-panel auth-panel--wallet">
+
+        <div class="auth-panel-header">
+          <div class="auth-panel-icon" aria-hidden="true">
+            <!-- Chain/link icon -->
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M7.5 10.5a3.5 3.5 0 0 0 5 0l2-2a3.536 3.536 0 0 0-5-5l-1 1"
+                    stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              <path d="M10.5 7.5a3.5 3.5 0 0 0-5 0l-2 2a3.536 3.536 0 0 0 5 5l1-1"
+                    stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h2 class="auth-panel-title">Connect Wallet</h2>
+        </div>
+
+        <p class="auth-panel-desc">
+          Use your Web3 wallet as your APEX identity. No password needed —
+          your keys, your account.
+        </p>
+
+        <!-- Wallet buttons -->
+        <div class="wallet-options" id="wallet-options">
+
+          <!-- WalletConnect -->
+          <button class="wallet-btn wc-btn" data-wallet="walletconnect"
+                  aria-label="Connect with WalletConnect">
+            <div class="wallet-btn-logo" aria-hidden="true">
+              <!-- WalletConnect simplified mark -->
+              <svg width="22" height="14" viewBox="0 0 22 14" fill="none">
+                <path d="M4.5 3.5C7.5 0.5 14.5 0.5 17.5 3.5L18.8 4.8a.9.9 0 0 1 0 1.3l-2 2a.45.45 0 0 1-.65 0l-1.8-1.8c-1.9-1.9-5-1.9-6.9 0L5.6 8.1a.45.45 0 0 1-.65 0l-2-2a.9.9 0 0 1 0-1.3L4.5 3.5Z" fill="#3B99FC"/>
+              </svg>
+            </div>
+            <div class="wallet-btn-text">
+              <span class="wallet-btn-name">WalletConnect</span>
+              <span class="wallet-btn-sub">MetaMask, Rainbow, etc.</span>
+            </div>
+          </button>
+
+          <!-- Privy -->
+          <button class="wallet-btn prv-btn" data-wallet="privy"
+                  aria-label="Connect with Privy">
+            <div class="wallet-btn-logo" aria-hidden="true">
+              <!-- Shield icon in Privy purple -->
+              <svg width="16" height="18" viewBox="0 0 16 18" fill="none">
+                <path d="M8 1L2 3.5v5C2 12.3 4.7 15.7 8 17c3.3-1.3 6-4.7 6-8.5v-5L8 1Z"
+                      stroke="#7066E0" stroke-width="1.4" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="wallet-btn-text">
+              <span class="wallet-btn-name">Privy</span>
+              <span class="wallet-btn-sub">Email, social, or passkey</span>
+            </div>
+          </button>
+
+        </div><!-- /.wallet-options -->
+
+        <!-- Connected success state (hidden until wallet connects) -->
+        <div class="wallet-connected" id="wallet-connected" hidden
+             role="status" aria-live="polite" aria-label="Wallet connected successfully">
+          <div class="wc-check" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10l4.5 4.5L16 6" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="wc-address" id="wc-address">0x4aF3…d19C</span>
+          <span class="wc-label">Wallet connected</span>
+        </div>
+
+        <!-- Trust note -->
+        <div class="wallet-trust-note" aria-label="Security note">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.2"
+                  stroke-linecap="round"/>
+          </svg>
+          Non-custodial. APEX never holds your private keys.
+          Wallet connection is for authentication only.
+        </div>
+
+      </div><!-- /.auth-panel--wallet -->
+
+    </div><!-- /.auth-panels -->
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <footer class="auth-footer">
+    <button class="q-btn q-btn--back" id="auth-btn-back"
+            aria-label="Go back to coach selection">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <path d="M9 3L5 7l4 4" stroke="currentColor" stroke-width="1.6"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back
+    </button>
+  </footer>
+
+</section><!-- /#screen-auth -->
+
+
+<!-- ================================================================
+     SCREEN 4 — DASHBOARD
+     ================================================================ -->
+<section id="screen-dashboard" class="screen" aria-label="Your fitness dashboard">
+
+  <!-- ================================================================
+       SIDEBAR
+       ================================================================ -->
+  <aside class="dash-sidebar" id="dash-sidebar" aria-label="Main navigation">
+
+    <!-- Logo -->
+    <div class="dash-sidebar-logo">
+      <div class="q-logo" aria-label="APEX">
+        <span class="logo-mark" aria-hidden="true">A</span>
+        <span class="logo-text">APEX</span>
+      </div>
+    </div>
+
+    <!-- Primary nav -->
+    <nav class="dash-nav" aria-label="Dashboard navigation">
+      <ul class="dash-nav-list" role="list">
+
+        <li>
+          <button class="dash-nav-item active" data-view="home" aria-current="page">
+            <span class="dash-nav-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M2 7.5L9 2l7 5.5V16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5Z"
+                      stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                <path d="M6 17V10h6v7" stroke="currentColor" stroke-width="1.4"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="dash-nav-label">Home</span>
+          </button>
+        </li>
+
+        <li>
+          <button class="dash-nav-item" data-view="program" aria-current="false">
+            <span class="dash-nav-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <rect x="2" y="2" width="14" height="14" rx="2"
+                      stroke="currentColor" stroke-width="1.4"/>
+                <path d="M6 6h6M6 9h6M6 12h4"
+                      stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="dash-nav-label">My Program</span>
+          </button>
+        </li>
+
+        <li>
+          <button class="dash-nav-item" data-view="progress" aria-current="false">
+            <span class="dash-nav-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <polyline points="2,14 6,9 10,11 14,5 16,7"
+                          stroke="currentColor" stroke-width="1.4"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="dash-nav-label">Progress</span>
+          </button>
+        </li>
+
+        <li>
+          <button class="dash-nav-item" data-view="nutrition" aria-current="false">
+            <span class="dash-nav-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M9 2C6 2 3 5 3 9c0 3.3 2 6 5 6.8V16h2v-.2C13 15 15 12.3 15 9c0-4-3-7-6-7Z"
+                      stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                <path d="M9 2v14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="dash-nav-label">Nutrition</span>
+          </button>
+        </li>
+
+        <li>
+          <button class="dash-nav-item" data-view="chat" aria-current="false"
+                  aria-label="Chat with Coach — 1 new message">
+            <span class="dash-nav-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M2 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6l-4 3V3Z"
+                      stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="dash-nav-label">Chat with Coach</span>
+            <span class="dash-nav-badge" aria-hidden="true">1</span>
+          </button>
+        </li>
+
+      </ul>
+    </nav>
+
+    <!-- User strip -->
+    <div class="dash-sidebar-user">
+      <div class="dash-avatar" id="dash-avatar-initials" aria-hidden="true">U</div>
+      <div class="dash-user-info">
+        <span class="dash-user-name" id="dash-user-name">Athlete</span>
+        <span class="dash-user-sub"  id="dash-user-coach-label">Your Coach</span>
+      </div>
+    </div>
+
+  </aside><!-- /.dash-sidebar -->
+
+  <!-- ================================================================
+       MAIN AREA
+       ================================================================ -->
+  <div class="dash-main" id="dash-main">
+
+    <!-- Top bar -->
+    <header class="dash-topbar" role="banner">
+      <div class="dash-topbar-left">
+
+        <!-- Mobile hamburger -->
+        <button class="dash-hamburger" id="dash-hamburger"
+                aria-label="Open navigation menu" aria-expanded="false">
+          <svg width="16" height="14" viewBox="0 0 16 14" fill="none" aria-hidden="true">
+            <path d="M1 1h14M1 7h14M1 13h14"
+                  stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </button>
+
+        <h1 class="dash-topbar-title" id="dash-topbar-title">Home</h1>
+      </div>
+
+      <div class="dash-topbar-right">
+        <button class="dash-topbar-avatar" id="dash-topbar-avatar-btn"
+                aria-label="User account menu">
+          <div class="dash-avatar dash-avatar--sm" id="dash-topbar-initials"
+               aria-hidden="true">U</div>
+        </button>
+      </div>
+    </header>
+
+    <!-- Scrollable content -->
+    <main class="dash-content" id="dash-content">
+
+      <!-- ── Greeting ──────────────────────────── -->
+      <section class="dash-greeting" aria-labelledby="dash-greeting-heading">
+
+        <div class="dash-greeting-text">
+          <p class="dash-greeting-eyebrow" id="dash-greeting-time">Good morning</p>
+          <h2 class="dash-greeting-name" id="dash-greeting-name"
+              aria-labelledby="dash-greeting-heading">
+            Welcome back, Athlete.
+          </h2>
+          <p class="dash-greeting-sub">Your coach is ready. Let's get to work.</p>
+        </div>
+
+        <div class="dash-greeting-coach" aria-hidden="true">
+          <div class="dash-coach-avatar" id="dash-coach-avatar-letter">C</div>
+          <span class="dash-coach-tag" id="dash-coach-tag-label">Your Coach</span>
+        </div>
+
+      </section>
+
+      <!-- ── Today's Program — large placeholder ── -->
+      <div class="dash-placeholder-card"
+           role="region" aria-label="Today's program — coming soon">
+        <div class="dash-placeholder-inner">
+
+          <div class="dash-placeholder-icon" aria-hidden="true">
+            <!-- Lightning bolt -->
+            <svg width="26" height="28" viewBox="0 0 26 28" fill="none">
+              <path d="M15 2L3 16h10l-2 10 14-16H15L17 2Z"
+                    stroke="currentColor" stroke-width="1.7"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <p class="dash-placeholder-title">Today's Program</p>
+          <p class="dash-placeholder-sub">
+            Your personalised workout plan will appear here once your
+            coach has prepared it for you.
+          </p>
+
+          <span class="dash-placeholder-chip">Coming Soon</span>
+
+        </div>
+      </div>
+
+      <!-- ── Stats row (empty) ──────────────────── -->
+      <div class="dash-stats-row" aria-label="Training statistics">
+
+        <div class="dash-stat-card">
+          <span class="dash-stat-label">Workouts</span>
+          <span class="dash-stat-value" aria-label="No data yet">—</span>
+          <span class="dash-stat-hint">Total completed</span>
+        </div>
+
+        <div class="dash-stat-card">
+          <span class="dash-stat-label">Streak</span>
+          <span class="dash-stat-value" aria-label="No data yet">—</span>
+          <span class="dash-stat-hint">Days in a row</span>
+        </div>
+
+        <div class="dash-stat-card">
+          <span class="dash-stat-label">This Week</span>
+          <span class="dash-stat-value" aria-label="No data yet">—</span>
+          <span class="dash-stat-hint">Sessions logged</span>
+        </div>
+
+      </div>
+
+    </main><!-- /.dash-content -->
+
+  </div><!-- /.dash-main -->
+
+  <!-- ================================================================
+       MOBILE: overlay + bottom nav
+       ================================================================ -->
+  <div class="dash-overlay" id="dash-overlay" aria-hidden="true"></div>
+
+  <nav class="dash-bottom-nav" aria-label="Mobile navigation">
+    <ul class="dash-bottom-nav-list" role="list">
+
+      <li>
+        <button class="dash-bottom-nav-item active" data-view="home"
+                aria-current="page" aria-label="Home">
+          <span class="dash-bottom-nav-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+              <path d="M2 7.5L9 2l7 5.5V16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5Z"
+                    stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+              <path d="M6 17V10h6v7" stroke="currentColor" stroke-width="1.4"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          Home
+        </button>
+      </li>
+
+      <li>
+        <button class="dash-bottom-nav-item" data-view="program"
+                aria-current="false" aria-label="My Program">
+          <span class="dash-bottom-nav-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+              <rect x="2" y="2" width="14" height="14" rx="2"
+                    stroke="currentColor" stroke-width="1.4"/>
+              <path d="M6 6h6M6 9h6M6 12h4"
+                    stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </span>
+          Program
+        </button>
+      </li>
+
+      <li>
+        <button class="dash-bottom-nav-item" data-view="progress"
+                aria-current="false" aria-label="Progress">
+          <span class="dash-bottom-nav-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+              <polyline points="2,14 6,9 10,11 14,5 16,7"
+                        stroke="currentColor" stroke-width="1.4"
+                        stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          Progress
+        </button>
+      </li>
+
+      <li>
+        <button class="dash-bottom-nav-item" data-view="nutrition"
+                aria-current="false" aria-label="Nutrition">
+          <span class="dash-bottom-nav-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+              <path d="M9 2C6 2 3 5 3 9c0 3.3 2 6 5 6.8V16h2v-.2C13 15 15 12.3 15 9c0-4-3-7-6-7Z"
+                    stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+              <path d="M9 2v14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </span>
+          Nutrition
+        </button>
+      </li>
+
+      <li>
+        <button class="dash-bottom-nav-item" data-view="chat"
+                aria-current="false" aria-label="Chat with Coach">
+          <span class="dash-bottom-nav-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+              <path d="M2 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6l-4 3V3Z"
+                    stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          Coach
+        </button>
+      </li>
+
+    </ul>
+  </nav>
+
+</section><!-- /#screen-dashboard -->
+
+<!-- Scripts — order matters: app (state/router) first, then screens -->
+<script src="js/app.js"></script>
+<script src="js/questionnaire.js"></script>
+<script src="js/coaches.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/dashboard.js"></script>
+
+</body>
+</html>
